@@ -34,3 +34,7 @@ def test_a_clear_message_when_no_database_is_configured(monkeypatch):
     monkeypatch.setattr("app.db.DATABASE_URL", None)
     with pytest.raises(RuntimeError, match="DATABASE_URL is not set"):
         get_engine()
+# ... (existing code in test_db_models.py) ...
+
+def test_ci_pipeline_failure():
+    assert 1 == 2
