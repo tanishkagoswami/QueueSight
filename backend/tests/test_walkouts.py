@@ -1,7 +1,6 @@
 """A patient who walks out stops "waiting" the moment they leave: in the data, the model features and the board."""
 import pandas as pd
 import pytest
-
 from app.data import ENC_TIMES, TEST_TIMES, clean
 from app.features import _live_load
 from app.snapshot import queue_state

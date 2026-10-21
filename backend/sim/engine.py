@@ -10,7 +10,14 @@ import numpy as np
 import pandas as pd
 import simpy
 
-from sim.config import HOURLY_PROFILE, TEST_TYPES, VISIT_TYPE_MIX, WEEKDAY_FACTOR, Department, SimConfig
+from sim.config import (
+    HOURLY_PROFILE,
+    TEST_TYPES,
+    VISIT_TYPE_MIX,
+    WEEKDAY_FACTOR,
+    Department,
+    SimConfig,
+)
 from sim.population import make_population, pick_patients
 
 MIN_PER_DAY = 1440

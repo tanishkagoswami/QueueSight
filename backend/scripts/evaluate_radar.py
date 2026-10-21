@@ -12,7 +12,6 @@ import time
 
 import numpy as np
 import pandas as pd
-
 from app.snapshot import WALKOUT_WEIGHT, priority, queue_state
 from app.state import STATE
 

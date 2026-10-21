@@ -1,6 +1,5 @@
 """The radar ranks by minutes past the predicted range, and adds walk-out risk only when that model is trusted live."""
 import pytest
-
 from app.snapshot import LEFT_BONUS, WALKOUT_WEIGHT, priority
 
 
@@ -17,8 +16,8 @@ def test_each_percent_of_risk_counts_like_a_minute_when_trusted():
 
 
 def test_a_likely_walkout_outranks_a_slightly_overdue_patient_only_when_trusted():
-    slightly_overdue = dict(minutes_over=10, risk=0.02)
-    likely_to_leave = dict(minutes_over=-5, risk=0.60)   # still within range, but 60% likely to walk out
+    slightly_overdue = {"minutes_over": 10, "risk": 0.02}
+    likely_to_leave = {"minutes_over": -5, "risk": 0.60}   # still within range, but 60% likely to walk out
     for trusted, first in [(True, "leaver"), (False, "overdue")]:
         a = priority(**slightly_overdue, use_risk=trusted)
         b = priority(**likely_to_leave, use_risk=trusted)

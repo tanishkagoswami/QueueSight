@@ -14,10 +14,9 @@ from alembic import command
 from alembic.autogenerate import compare_metadata
 from alembic.config import Config
 from alembic.migration import MigrationContext
+from app.db import HYPERTABLES, SQLModel, is_ours
 from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.exc import IntegrityError
-
-from app.db import HYPERTABLES, SQLModel, is_ours
 
 TEST_URL = os.getenv("TEST_DATABASE_URL")
 pytestmark = pytest.mark.skipif(not TEST_URL, reason="needs TEST_DATABASE_URL (a spare database)")

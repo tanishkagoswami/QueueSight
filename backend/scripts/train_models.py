@@ -7,7 +7,6 @@ import json
 import time
 
 import joblib
-
 from app.config import ARTIFACTS_DIR
 from app.data import load_clean
 from app.features import build_encounter_features

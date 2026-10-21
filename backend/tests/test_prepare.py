@@ -1,6 +1,5 @@
 """On startup QueueSight only simulates and trains what is missing, so a restart takes seconds."""
 import pytest
-
 from scripts.prepare import DATA_FILES, MODEL_FILES, steps_needed
 
 

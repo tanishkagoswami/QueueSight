@@ -1,7 +1,6 @@
 """The simulator must be reproducible, match the dataset format exactly, and behave like a real hospital."""
 import pandas as pd
 import pytest
-
 from app.config import ROOT_DIR
 from sim.config import SimConfig
 from sim.engine import run

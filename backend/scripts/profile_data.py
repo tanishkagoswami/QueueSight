@@ -8,11 +8,13 @@ import sys
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import HistGradientBoostingClassifier, HistGradientBoostingRegressor
+from app.config import RANDOM_STATE, RAW_DIR, VALID_END
+from sklearn.ensemble import (
+    HistGradientBoostingClassifier,
+    HistGradientBoostingRegressor,
+)
 from sklearn.inspection import permutation_importance
 from sklearn.metrics import mean_absolute_error, r2_score, roc_auc_score
-
-from app.config import RAW_DIR, VALID_END, RANDOM_STATE
 
 pd.set_option("display.width", 160)
 pd.set_option("display.max_columns", 30)

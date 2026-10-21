@@ -1,10 +1,9 @@
 """The database tables match the dataset files column for column, and are ready to become TimescaleDB hypertables."""
 import pandas as pd
 import pytest
-from sqlalchemy import DateTime
-
 from app.config import ROOT_DIR
 from app.db import CSV_TABLES, HYPERTABLES, SQLModel, get_engine
+from sqlalchemy import DateTime
 
 
 @pytest.mark.parametrize("name", list(CSV_TABLES))

@@ -10,11 +10,10 @@ import pandas as pd
 import pytest
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import create_engine, text
-
 from app.config import DATA_SOURCES, ROOT_DIR
 from app.data import clean, load_clean_from_db, load_raw
 from scripts.load_db import PREDICTIONS, fingerprint, load
+from sqlalchemy import create_engine, text
 
 TEST_URL = os.getenv("TEST_DATABASE_URL")
 BACKEND = Path(__file__).resolve().parents[1]

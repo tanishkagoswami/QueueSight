@@ -9,7 +9,6 @@ import time
 from pathlib import Path
 
 import pandas as pd
-
 from app.config import ROOT_DIR
 from sim.config import SimConfig
 from sim.engine import run

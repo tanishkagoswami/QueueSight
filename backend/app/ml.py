@@ -4,16 +4,27 @@ import warnings
 import lightgbm as lgb
 import numpy as np
 import pandas as pd
-from sklearn.metrics import average_precision_score, brier_score_loss, mean_absolute_error, roc_auc_score
+from sklearn.metrics import (
+    average_precision_score,
+    brier_score_loss,
+    mean_absolute_error,
+    roc_auc_score,
+)
 
 from app.config import RANDOM_STATE, TRAIN_END, VALID_END
-from app.features import LBC_FEATURES, WAIT_CATS, WAIT_FEATURES, category_map, to_model_frame
+from app.features import (
+    LBC_FEATURES,
+    WAIT_CATS,
+    WAIT_FEATURES,
+    category_map,
+    to_model_frame,
+)
 
 warnings.filterwarnings("ignore", message=".*eval_set.*")  # harmless notice in newer LightGBM
 
-PARAMS = dict(n_estimators=3000, learning_rate=0.03, num_leaves=15, min_child_samples=30,
-              subsample=0.8, subsample_freq=1, colsample_bytree=0.8, reg_lambda=1.0,
-              random_state=RANDOM_STATE, verbose=-1)
+PARAMS = {"n_estimators": 3000, "learning_rate": 0.03, "num_leaves": 15, "min_child_samples": 30,
+              "subsample": 0.8, "subsample_freq": 1, "colsample_bytree": 0.8, "reg_lambda": 1.0,
+              "random_state": RANDOM_STATE, "verbose": -1}
 
 
 def split(ts):

@@ -4,6 +4,8 @@ Training scores every visit with its FINAL wait, which nobody knows while the pa
 model looks better in hindsight than it really is on the radar. Here we replay real moments to measure its honest
 "live" quality, and calibrate its percentages so that "30%" really means about 3 in 10 such patients walk out.
 """
+import itertools
+
 import numpy as np
 import pandas as pd
 from sklearn.isotonic import IsotonicRegression
@@ -48,11 +50,11 @@ def fit_calibrator(snaps, min_per_step=MIN_PER_STEP):
 
 def calibration_table(shown, left):
     """For each band of shown risk: what we showed on average vs how many really left."""
-    labels = [f"{a:.0%}-{b:.0%}" for a, b in zip(RISK_BANDS[:-1], RISK_BANDS[1:])]
+    labels = [f"{a:.0%}-{b:.0%}" for a, b in itertools.pairwise(RISK_BANDS)]
     t = pd.DataFrame({"shown": shown, "left": left})
     t["band"] = pd.cut(t["shown"], RISK_BANDS, labels=labels, include_lowest=True)
     return [{"band": str(b), "shown": round(float(g["shown"].mean()), 3),
-             "really_left": round(float(g["left"].mean()), 3), "n": int(len(g))}
+             "really_left": round(float(g["left"].mean()), 3), "n": len(g)}
             for b, g in t.groupby("band", observed=True)]
 
 
@@ -79,7 +81,7 @@ def evaluate_live(df, lbc_bundle):
 
     metrics = {
         "how": f"every {EVERY} of Nov-Dec 2025: each waiting patient's risk right now vs whether they later walked out",
-        "patient_moments": int(len(test)),
+        "patient_moments": len(test),
         "walked_out_pct": round(100 * y.mean(), 1) if len(y) else None,
         "model": {**_scores(y, shown), "brier": round(brier_score_loss(y, shown), 4) if len(y) else None},
         "rules": {"minutes waited so far": _scores(y, test["waited"].to_numpy()), "triage rate": _scores(y, tri)},

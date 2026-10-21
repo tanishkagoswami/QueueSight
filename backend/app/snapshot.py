@@ -81,7 +81,7 @@ def board(t):
         rows.append({
             "department_id": dep_id, "name": name,
             "waiting_now": int((waiting & m).sum()), "in_service_now": int((in_service & m).sum()),
-            "arrivals_today": int((today & m).sum()), "seen_today": int(len(st)),
+            "arrivals_today": int((today & m).sum()), "seen_today": len(st),
             "median_wait_today": _num(med_today), "normal_wait": _num(normal),
             "predicted_median_today": _num(df.loc[today & m, "pred_p50"].median()),
             "ratio_vs_normal": _num(ratio, 2), "status": _status(ratio),

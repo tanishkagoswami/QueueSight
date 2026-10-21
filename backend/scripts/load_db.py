@@ -9,15 +9,14 @@ Run from inside backend/, with DATABASE_URL set:
 import hashlib
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import pandas as pd
-from sqlalchemy import Engine, Integer, insert, select, text
-
 from app.config import ARTIFACTS_DIR, DATA_SOURCE, RAW_DIR
 from app.data import TABLES, clean, load_raw
 from app.db import CSV_TABLES, LoadedHospital, Prediction, get_engine
+from sqlalchemy import Engine, Integer, insert, select, text
 
 BACKEND = Path(__file__).resolve().parents[1]
 PREDICTIONS = "encounter_predictions.csv"   # written by scripts.train_models
@@ -63,7 +62,7 @@ def load(engine: Engine, source: str, raw_dir: Path, artifacts_dir: Path, force:
             _copy(cur, table, cleaned[TABLE_KEYS[name]])
         _copy(cur, Prediction, predictions)
         conn.execute(insert(LoadedHospital.__table__).values(
-            id=1, source=source, loaded_at=datetime.now(timezone.utc),
+            id=1, source=source, loaded_at=datetime.now(UTC),
             encounters=len(cleaned["encounters"]), fingerprint=code))
     return {"visits": len(cleaned["encounters"]), "tests": len(cleaned["tests"]),
             "patients": len(cleaned["patients"]), "predictions": len(predictions)}

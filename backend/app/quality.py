@@ -1,5 +1,4 @@
 """Data Quality Center: every problem we find in the raw data, how big it is, and how we handled it."""
-import pandas as pd
 
 from app.data import LBC, days_covered
 
@@ -84,8 +83,8 @@ def run_checks(raw, clean):
     sev_rank = {"high": 0, "medium": 1, "low": 2}
     out.sort(key=lambda i: (sev_rank[i["severity"]], -i["count"]))
     summary = {
-        "raw_rows": {k_: int(len(v)) for k_, v in raw.items()},
-        "clean_rows": {k_: int(len(v)) for k_, v in clean.items()},
+        "raw_rows": {k_: len(v) for k_, v in raw.items()},
+        "clean_rows": {k_: len(v) for k_, v in clean.items()},
         "issues_found": len(out),
         "days_covered": days,
         "date_range": [str(clean["encounters"]["arrival_time"].min()), str(clean["encounters"]["arrival_time"].max())],
