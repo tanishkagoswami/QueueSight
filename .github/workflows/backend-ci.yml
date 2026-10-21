@@ -17,15 +17,24 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11" # Standard for ML/FastAPI backends
+          python-version: "3.11"
+          cache: 'pip' # UPGRADE 1: Added dependency caching here
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
           pip install -r backend/requirements-dev.txt
-
-      - name: Run Pytest
+          
+      - name: Lint with Ruff
+        # UPGRADE 2: Added linting immediately after installation
+        run: |
+          pip install ruff
+          ruff check backend/
+          
+      - name: Run Pytest with Coverage
+        # UPGRADE 3: Modified the test runner to include coverage tracking
         run: |
           cd backend
-          pytest
+          pip install pytest-cov
+          pytest --cov=app --cov-report=term
